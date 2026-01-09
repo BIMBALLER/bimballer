@@ -3,28 +3,22 @@
 @tailwind utilities;
 
 :root {
-  /* Midnight Theme (Default) */
   --bg-main: #020617;
   --text-main: #f8fafc;
-  --card-bg: rgba(30, 41, 59, 0.5);
-  --border-color: rgba(255, 255, 255, 0.1);
 }
 
 :root.light {
-  /* Corporate Light Theme */
   --bg-main: #f8fafc;
   --text-main: #0f172a;
-  --card-bg: rgba(255, 255, 255, 0.8);
-  --border-color: rgba(15, 23, 42, 0.1);
 }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 body {
   background-color: var(--bg-main);
   color: var(--text-main);
   transition: background-color 0.4s ease, color 0.4s ease;
   overflow-x: hidden;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
+  -webkit-font-smoothing: antialiased;
 }

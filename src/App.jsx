@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Mail, Linkedin, Zap, GraduationCap, Download, ExternalLink, Check, ArrowUp, Briefcase, Sun, Moon, MessageCircle } from 'lucide-react';
+import { Github, Linkedin, Zap, Download, ExternalLink, ArrowUp, Briefcase, Sun, Moon, MessageCircle } from 'lucide-react';
 
 const App = () => {
   const [isLight, setIsLight] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
 
-  // UPDATE: Replace with your actual number (Country Code + Number)
   const WHATSAPP_NUMBER = "2348058979847"; 
   const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Hello Abimbola, I saw your portfolio and would like to connect!`;
 
   const toggleTheme = () => {
     const newMode = !isLight;
     setIsLight(newMode);
-    if (newMode) {
-      document.documentElement.classList.add('light');
-    } else {
-      document.documentElement.classList.remove('light');
-    }
+    document.documentElement.classList.toggle('light', newMode);
   };
 
   const handleDownload = () => {
@@ -30,12 +24,6 @@ const App = () => {
     document.body.removeChild(link);
   };
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText("abimbolaabdulmuizz@email.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   useEffect(() => {
     const checkScroll = () => setShowScroll(window.scrollY > 400);
     window.addEventListener('scroll', checkScroll);
@@ -43,146 +31,108 @@ const App = () => {
   }, []);
 
   const stacks = [
-    { name: 'React', icon: 'react' },
-    { name: 'JavaScript', icon: 'javascript' },
-    { name: 'Tailwind', icon: 'tailwindcss' },
-    { name: 'Node.js', icon: 'nodedotjs' },
-    { name: 'Vite', icon: 'vite' },
-    { name: 'Git', icon: 'git' },
-    { name: 'Netlify', icon: 'netlify' },
-    { name: 'HTML5', icon: 'html5' }
+    { name: 'React', icon: 'react' }, { name: 'JavaScript', icon: 'javascript' },
+    { name: 'Tailwind', icon: 'tailwindcss' }, { name: 'Node.js', icon: 'nodedotjs' },
+    { name: 'Vite', icon: 'vite' }, { name: 'Git', icon: 'git' },
+    { name: 'Netlify', icon: 'netlify' }, { name: 'HTML5', icon: 'html5' }
   ];
 
   const projects = [
-    {
-      title: "Logistic Web Solution",
-      tech: ["JavaScript", "CSS3", "UX"],
-      strategy: "Optimizing supply chain visibility through data-driven UI.",
-      link: "https://onels.netlify.app/",
-    },
-    {
-      title: "Standard Portal",
-      tech: ["React", "UI/UX", "Management"],
-      strategy: "Streamlining enterprise resource access for high productivity.",
-      link: "https://standardportal.netlify.app/",
-    },
-    {
-      title: "Habu Peti Brand",
-      tech: ["HTML5", "Branding", "Retail"],
-      strategy: "Converting brand identity into digital retail growth.",
-      link: "https://habupeti.netlify.app/",
-    },
-    {
-      title: "Random Quote Generator",
-      tech: ["JavaScript", "API"],
-      strategy: "Optimizing lightweight performance and clean interface design.",
-      link: "https://psychic-journey-lovat.vercel.app/",
-    }
+    { title: "Logistic Web Solution", tech: ["JavaScript", "CSS3", "UX"], strategy: "Optimizing supply chain visibility through data-driven UI.", link: "https://onels.netlify.app/" },
+    { title: "Standard Portal", tech: ["React", "UI/UX", "Management"], strategy: "Streamlining enterprise resource access for high productivity.", link: "https://standardportal.netlify.app/" },
+    { title: "Habu Peti Brand", tech: ["HTML5", "Branding", "Retail"], strategy: "Converting brand identity into digital retail growth.", link: "https://habupeti.netlify.app/" },
+    { title: "Random Quote Generator", tech: ["JavaScript", "API"], strategy: "Optimizing lightweight performance and clean interface design.", link: "https://psychic-journey-lovat.vercel.app/" }
   ];
 
-  const filteredProjects = projects.filter(p => 
-    activeFilter === 'All' ? true : p.tech.includes(activeFilter)
-  );
+  const filteredProjects = projects.filter(p => activeFilter === 'All' ? true : p.tech.includes(activeFilter));
 
   return (
-    <div className="min-h-screen bg-primary text-secondary transition-colors duration-500">
+    <div className="min-h-screen bg-primary text-secondary transition-colors duration-500 selection:bg-accent selection:text-white">
       
-      {/* FLOATING TOOLS */}
-      <div className="fixed bottom-8 right-8 z-[100] flex flex-col gap-4">
-        <button onClick={toggleTheme} className="p-4 bg-accent text-white rounded-full shadow-lg hover:rotate-12 transition-all">
-          {isLight ? <Moon size={24} /> : <Sun size={24} />}
+      {/* PERSISTENT THEME TOGGLE (BOTTOM RIGHT) */}
+      <div className="fixed bottom-6 right-6 z-[100] flex flex-col gap-3">
+        <button 
+          onClick={toggleTheme} 
+          className="p-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full shadow-2xl text-accent active:scale-90 md:hover:scale-110 transition-all"
+          aria-label="Toggle Theme"
+        >
+          {isLight ? <Moon size={22} /> : <Sun size={22} />}
         </button>
         <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className={`p-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg transition-all ${showScroll ? 'opacity-100' : 'opacity-0 translate-y-10'}`}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+          className={`p-4 bg-accent text-white rounded-full shadow-2xl transition-all duration-500 active:scale-90 ${showScroll ? 'opacity-100' : 'opacity-0 translate-y-10'}`}
         >
-          <ArrowUp size={24} className="text-accent" />
+          <ArrowUp size={22} strokeWidth={3} />
         </button>
       </div>
 
-      {/* NAVIGATION */}
-      <nav className="fixed top-0 w-full z-50 bg-primary/40 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <span className="text-2xl font-black tracking-tighter">ABIMBOLA<span className="text-accent">.</span></span>
-          <div className="flex items-center gap-4">
-            <button onClick={copyEmail} className="hidden sm:block px-4 py-2 text-xs font-bold uppercase opacity-60 hover:opacity-100 transition-all">
-              {copied ? 'Copied!' : 'Copy Email'}
-            </button>
-            <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-full text-xs font-bold uppercase hover:scale-105 transition-all shadow-lg shadow-accent/20">
-              <MessageCircle size={14} /> WhatsApp
-            </a>
-          </div>
+      <nav className="fixed top-0 w-full z-50 bg-primary/60 backdrop-blur-xl border-b border-white/5 px-5 py-4">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <span className="text-xl font-black italic uppercase tracking-tighter">ABIMBOLA<span className="text-accent">.</span></span>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-2 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg shadow-accent/20 active:scale-95 transition-transform">
+            <MessageCircle size={14} /> WhatsApp
+          </a>
         </div>
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative pt-48 pb-24 px-6">
-        <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-accent/10 blur-[120px] rounded-full"></div>
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
-            <h1 className="text-5xl md:text-7xl font-black leading-[1.1]">
-              Business Mind.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600 animate-gradient-x">Developer Soul.</span>
-            </h1>
-            <p className="text-lg opacity-80 max-w-xl mx-auto lg:mx-0">
-              KWASU Business Graduate bridging the gap between profit strategies and scalable code.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="#projects" className="px-8 py-4 bg-accent text-white font-bold rounded-full hover:scale-105 transition-all shadow-lg shadow-accent/20">View Work</a>
-              <button onClick={handleDownload} className="flex items-center justify-center gap-2 px-8 py-4 border border-accent/30 rounded-full font-bold hover:bg-accent/5">
-                <Download size={18} /> Get Resume
-              </button>
+      <section className="pt-32 pb-16 md:pt-48 md:pb-32 px-5 relative overflow-hidden text-center lg:text-left">
+        <div className="max-w-7xl mx-auto flex flex-col items-center lg:items-start lg:grid lg:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-accent text-[10px] font-bold uppercase tracking-widest animate-bounce"><Zap size={12} />HIT ME UP LET'S BUILD</div>
+            <h1 className="text-5xl md:text-8xl font-black leading-[1.05] tracking-tighter uppercase">Business Mind.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500 animate-gradient-x">Dev Soul.</span></h1>
+            <p className="text-sm md:text-xl opacity-70 max-w-md mx-auto lg:mx-0 leading-relaxed">Bridging the gap between <span className="font-bold text-secondary">profit strategies</span> and <span className="font-bold text-secondary">scalable code</span>.</p>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <a href="#projects" className="px-10 py-4 bg-accent text-white font-bold rounded-2xl text-center shadow-xl shadow-accent/20 active:scale-95 transition-transform uppercase text-sm">View Work</a>
+              <button onClick={handleDownload} className="flex items-center justify-center gap-2 px-10 py-4 border border-white/10 rounded-2xl font-bold active:bg-white/5 transition-all uppercase text-sm"><Download size={18} /> Resume</button>
             </div>
           </div>
-          <div className="mx-auto relative group order-1 lg:order-2">
-            <div className="absolute -inset-4 bg-accent/20 rounded-[3rem] blur-2xl group-hover:bg-accent/30 transition-all"></div>
-            <img src="/me.jpg" className="relative w-64 md:w-80 rounded-[2.5rem] grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl border border-white/10" alt="Profile" />
+          <div className="relative group max-w-[280px] md:max-w-md aspect-[4/5] mx-auto">
+            <img src="/me.jpg" className="w-full h-full object-cover rounded-[2.5rem] grayscale group-hover:grayscale-0 transition-all duration-1000 border border-white/10 shadow-2xl" alt="Profile" />
           </div>
         </div>
       </section>
 
       {/* MARQUEE */}
-      <div className="py-12 bg-white/5 border-y border-white/5 overflow-hidden">
-        <div className="flex whitespace-nowrap animate-marquee">
+      <div className="py-8 bg-white/5 border-y border-white/5 overflow-hidden">
+        <div className="flex whitespace-nowrap animate-marquee items-center">
           {[...stacks, ...stacks, ...stacks].map((tech, i) => (
-            <div key={i} className="mx-12 flex items-center gap-4 group">
-              <img src={`https://cdn.simpleicons.org/${tech.icon}`} className="w-10 h-10 grayscale group-hover:grayscale-0 transition-all" alt={tech.name} />
-              <span className="text-4xl font-black opacity-20 group-hover:opacity-100 transition-opacity uppercase tracking-tighter">{tech.name}</span>
+            <div key={i} className="mx-8 md:mx-16 flex items-center gap-4">
+              <img src={`https://cdn.simpleicons.org/${tech.icon}`} className="w-8 h-8 md:w-12 md:h-12 grayscale opacity-40" alt={tech.name} />
+              <span className="text-2xl md:text-5xl font-black opacity-10 uppercase tracking-tighter">{tech.name}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* PROJECTS SECTION */}
-      <section id="projects" className="py-24 px-6">
+      <section id="projects" className="py-20 px-5">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-6">
-            <h2 className="text-4xl font-black uppercase tracking-tight text-center md:text-left">Selected Work</h2>
-            <div className="flex gap-2 bg-white/5 p-1 rounded-full border border-white/5">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6 text-center">
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight">Portfolio</h2>
+            <div className="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto pb-2 justify-center">
               {['All', 'React', 'JavaScript'].map(f => (
-                <button key={f} onClick={() => setActiveFilter(f)} className={`px-6 py-2 rounded-full text-xs font-bold transition-all uppercase tracking-widest ${activeFilter === f ? 'bg-accent text-white shadow-lg' : 'hover:bg-white/10 opacity-60'}`}>{f}</button>
+                <button key={f} onClick={() => setActiveFilter(f)} className={`px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest shrink-0 transition-all ${activeFilter === f ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'bg-white/5 opacity-40'}`}>{f}</button>
               ))}
             </div>
           </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 md:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
             {filteredProjects.map((p, i) => (
-              <div key={i} className="group p-6 bg-white/5 rounded-[2rem] border border-white/5 hover:border-accent/30 transition-all shadow-xl">
-                <div className="aspect-video bg-primary rounded-2xl mb-8 overflow-hidden relative border border-white/10">
-                   <iframe src={p.link} className="w-[1200px] h-[900px] origin-top-left scale-[0.3] md:scale-[0.4] pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity" title={p.title}></iframe>
-                   <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+              <div key={i} className="group flex flex-col space-y-6">
+                <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden border border-white/10 bg-black shadow-2xl">
+                  <iframe src={p.link} className="w-full h-full absolute top-0 left-0 scale-100 opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none" title={p.title}></iframe>
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 flex gap-2">
+                    {p.tech.map(t => <span key={t} className="px-2 py-1 bg-black/40 backdrop-blur-md text-white rounded text-[8px] font-bold uppercase">{t}</span>)}
+                  </div>
                 </div>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-2xl font-bold uppercase">{p.title}</h3>
-                    <a href={p.link} target="_blank" rel="noreferrer" className="p-3 bg-accent/10 text-accent rounded-full hover:bg-accent hover:text-white transition-all"><ExternalLink size={20} /></a>
+                <div className="space-y-4 px-2 text-left">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-2xl font-bold uppercase tracking-tight">{p.title}</h3>
+                    <a href={p.link} target="_blank" rel="noreferrer" className="p-3 bg-accent/10 text-accent rounded-full active:bg-accent active:text-white transition-all"><ExternalLink size={18} /></a>
                   </div>
-                  <div className="flex items-start gap-3 p-4 bg-purple-500/5 border border-purple-500/10 rounded-xl">
-                    <Briefcase size={18} className="text-purple-400 shrink-0 mt-1" />
-                    <p className="text-sm opacity-70 italic leading-relaxed">"{p.strategy}"</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {p.tech.map(t => <span key={t} className="px-3 py-1 bg-white/5 rounded-md text-[10px] font-bold uppercase tracking-widest border border-white/5">{t}</span>)}
+                  <div className="p-5 bg-white/5 rounded-2xl border-l-4 border-accent italic text-sm opacity-70 leading-relaxed">
+                    "{p.strategy}"
                   </div>
                 </div>
               </div>
@@ -192,20 +142,14 @@ const App = () => {
       </section>
 
       {/* FOOTER */}
-      <footer id="contact" className="py-32 text-center border-t border-white/5 bg-white/5 backdrop-blur-sm">
-        <h2 className="text-4xl md:text-6xl font-black mb-12 uppercase tracking-tight">Let's build something <span className="text-accent animate-pulse">significant.</span></h2>
-        <div className="flex justify-center gap-4 md:gap-8 mb-20">
-          <a href="https://github.com/BIMBALLER/" target="_blank" rel="noreferrer" className="group p-6 bg-white/5 rounded-[2rem] hover:bg-white hover:text-black transition-all duration-300 shadow-lg">
-            <Github size={32} className="group-hover:scale-110 transition-transform" />
-          </a>
-          <a href="https://linkedin.com/in/omoniyi-abimbola-abdulmuizz/" target="_blank" rel="noreferrer" className="group p-6 bg-white/5 rounded-[2rem] hover:bg-[#0077b5] hover:text-white transition-all duration-300 shadow-lg">
-            <Linkedin size={32} className="group-hover:scale-110 transition-transform" />
-          </a>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="group p-6 bg-white/5 rounded-[2rem] hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-lg">
-            <MessageCircle size={32} className="group-hover:scale-110 transition-transform" />
-          </a>
+      <footer id="contact" className="py-24 text-center border-t border-white/5 bg-gradient-to-b from-transparent to-accent/5 px-5">
+        <h2 className="text-5xl md:text-8xl font-black mb-12 uppercase tracking-tighter leading-none">Let's build <br/><span className="text-accent underline decoration-white/10">Significant</span> Work.</h2>
+        <div className="flex justify-center gap-4 mb-16">
+          <a href="https://github.com/BIMBALLER/" className="p-5 md:p-8 bg-white/5 rounded-3xl hover:bg-white hover:text-black transition-all shadow-xl"><Github size={30} /></a>
+          <a href="https://linkedin.com/in/omoniyi-abimbola-abdulmuizz/" className="p-5 md:p-8 bg-white/5 rounded-3xl hover:bg-[#0077b5] hover:text-white transition-all shadow-xl"><Linkedin size={30} /></a>
+          <a href={WHATSAPP_LINK} className="p-5 md:p-8 bg-white/5 rounded-3xl hover:bg-[#25D366] hover:text-white transition-all shadow-xl"><MessageCircle size={30} /></a>
         </div>
-        <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.8em] opacity-40">© 2026 ABIMBOLA ABDULMUIZZ • STRATEGY & CODE</p>
+        <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.8em] opacity-30">© 2026 ABIMBOLA ABDULMUIZZ • NIGERIA</p>
       </footer>
     </div>
   );

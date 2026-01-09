@@ -8,13 +8,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        // These link to the variables in index.css
         primary: "var(--bg-main)",
         secondary: "var(--text-main)",
         accent: "#06b6d4",
       },
       animation: {
-        'marquee': 'marquee 30s linear infinite',
+        'marquee': 'marquee 15s linear infinite',
         'gradient-x': 'gradient-x 10s ease infinite',
       },
       keyframes: {
