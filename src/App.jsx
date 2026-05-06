@@ -39,9 +39,9 @@ const App = () => {
 
   const projects = [
     { title: "Logistic Web Solution", tech: ["JavaScript", "CSS3", "UX"], strategy: "Optimizing supply chain visibility through data-driven UI.", link: "https://onels.netlify.app/" },
-    { title: "Standard Portal", tech: ["React", "UI/UX", "Management"], strategy: "Streamlining enterprise resource access for high productivity.", link: "https://standardportal.netlify.app/" },
-    { title: "Habu Peti Brand", tech: ["HTML5", "Branding", "Retail"], strategy: "Converting brand identity into digital retail growth.", link: "https://habupeti.netlify.app/" },
-    { title: "Random Quote Generator", tech: ["JavaScript", "API"], strategy: "Optimizing lightweight performance and clean interface design.", link: "https://psychic-journey-lovat.vercel.app/" }
+    { title: "Gadget Store", tech: ["React", "UI/UX", "Management"], strategy: "Streamlining enterprise resource access for high productivity.", link: "https://eedreess.vercel.app/" },
+    { title: "Habu Peti Brand", tech: ["HTML5", "Branding", "Retail"], strategy: "Converting brand identity into digital retail growth.", link: "https://habu-peti.vercel.app/" },
+    { title: "Journalism Reporting House", tech: ["JavaScript", "Next.js"], strategy: "Real-time News And Broadcasting.", link: "https://www.echoreport.com.ng/" }
   ];
 
   const filteredProjects = projects.filter(p => activeFilter === 'All' ? true : p.tech.includes(activeFilter));
